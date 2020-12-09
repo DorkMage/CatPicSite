@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CatPic</title>
+    <script>
+    var img;
+    const allCats = {{ clowder }}
+    const filters = {{ filters }}
+    let some_cats = allCats
+    let whitelist = []
+    let blacklist = []
+    let catNum = 0
+    function new_catpic(){
+        document.getElementById("p").innerHTML = "pPpPp";
+        img = document.getElementById("catpic");
+        if (Object.keys(allCats).length > catNum + 1) {
+        catNum++} else {
+         catNum = 0
+         }
+         pic_url = allCats[catNum][0];
+        img.src = pic_url;
+    };
+    function filter_pics(){
+        for (pic in allCats){
+
+        }
+    }
+        def neutralize(cat){
+        for (fil in self.blacklist){
+            if (fil == cat){
+                blacklist.remove(fil)
+                }
+            }
+        for (fil in self.whitelist){
+            if (fil == cat){
+                whitelist.remove(fil)
+            }
+        }
+    }
+    def add_to_whitelist(cat){
+        neutralize(cat)
+        whitelist.append(cat)
+    }
+    def add_to_blacklist(cat){
+        neutralize(cat)
+        blacklist.append(cat)
+    }
+    </script>
+</head>
+<body>
+    <div style="float:left">
+    <img src="{{ catpic.pic_url.url }}" width="512" id="catpic">
+        <p id="p">p</p>
+    <input type="button" onClick="new_catpic()" value="New Pic" id="new_pic">
+
+    </div>
+    <div style="float:left">
+    {% for filter in filters %}
+        <p>{{ filter.fil_text }}</p>
+        <form>
+            <input type="radio"><label>blacklist</label>
+            <input type="radio"><label>ignore</label>
+            <input type="radio"><label>whitelist</label>
+        </form>
+    {% endfor %}
+    </div>
+<script>
+    document.getElementById("p").innerHTML = "PPPPP";
+    img = document.getElementById("catpic");
+    </script>
+</body>
+
+</html>
