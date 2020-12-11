@@ -8,35 +8,20 @@ from random import randint
 import json
 
 
-class Clowder:
-    whitelist = []
-    blacklist = []
-
-    def neutralize(self, cat):
-        for i in self.blacklist:
-            if i == cat:
-                self.blacklist.remove(i)
-        for i in self.whitelist:
-            if i == cat:
-                self.whitelist.remove(i)
-
-    def add_to_whitelist(self, cat):
-        self.neutralize(cat)
-        self.whitelist.append(cat)
-
-    def add_to_blacklist(self, cat):
-        self.neutralize(cat)
-        self.blacklist.append(cat)
-
-
 def index(request):
     clowder = dict()
     catpics = Pic.objects.all()
     for i, pic in enumerate(catpics):
         url = pic.pic_url.url
         cats = pic.pic_cats
-        clowder[i] = ([url, [cats]])
-    filters = Filter.objects.all()
+        text = pic.pic_name
+        clowder[i] = ([url, cats, text])
+    filters_qs = Filter.objects.all()
+    filters = dict()
+    for i, fil in enumerate(filters_qs):
+        fil_text = fil.fil_text
+        fil_cat = fil.fil_cat
+        filters[i] = ([fil_text, fil_cat])
     template = loader.get_template('catpic/index.html')
     try:
         catpic = catpics[randint(0, len(catpics) - 1)]
@@ -44,7 +29,8 @@ def index(request):
         catpic = None
     #catpic = None
     context = {
-        'filters': filters,
+        'filters_qs': filters_qs,
+        'filters': mark_safe(json.dumps(filters)),
         'catpic': catpic,
         'clowder': mark_safe(json.dumps(clowder))
     }
