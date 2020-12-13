@@ -112,10 +112,10 @@
 <body>
     <div class="flex container mx-auto">
     <div class="text-center w-1/2">
-    <img src="{{ catpic.pic_url.url }}" onLoad="" width="512" id="catpic" class="rounded-full  w-96 h-96 mx-auto">
-        <p id="kitty">{{ catpic.pic_name}}</p>
     <input type="button" onClick="new_catpic()" value="New Pic" id="new_pic">
     <input type="button" onClick="cyberpunk_2077()" value="Seizure Mode" id="regrets">
+    <img src="{{ catpic.pic_url.url }}" onLoad="" width="512" id="catpic" class="rounded mx-auto">
+        <p id="kitty">{{ catpic.pic_name}}</p>
     </div>
     <div class="pl-10 w-1/2">
     {% for filter in filters_qs %}
